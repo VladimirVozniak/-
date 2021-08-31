@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
+
+body {
+    font-family: sans-serif;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #dbedf9;
+    width: 630px;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+
+.title {
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+}
+
+.block {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 10px;
+}
+
+.text-name {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.input-text, button {
+    width: 230px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 15px;
+}
+
+.input2-text {
+    width: auto;
+}
+
+.input-text:focus {
+    outline: 0;
+}
+
+.button-add {
+    background-color: #79c8a8;
+    /*color: black;*/
+    width: auto;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 15px;
+    transition: 75ms ease-in-out;
+}
+
+.button-add:hover {
+    transition: 75ms ease-in-out;
+    background-color: #6eb39b;
+}
+
+.total {
+    width: inherit;
+    text-align: end;
+    padding-right: 50px;
+    margin: 20px 5px 15px;
+}
+
+.total-text {
+    margin: 0 auto;
+}
+
+.lists {
+    width: 94%;
+    margin-top: 0;
+}
+
+.qwe, .list-elem {
+    display: inline-flex;
+    align-items: center;
+    width: 95%;
+}
+
+.list-elem2 {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.list {
+    font-size: large;
+}
+
+.list-offset {
+    position: relative;
+    top: 7px;
+}
+
+.cost {
+    width: 100px;
+}
+
+p {
+    margin: 10px 5px 10px 0;
+}
+
+.list-elem1 {
+    margin-right: auto;
+}
+
+.separator {
+    line-height: 28px;
+    height: 30px;
+    background-color: white;
+    margin: 0;
+    color: gray;
+}
+
+.input-text__edit {
+    height: 10px;
+}
+
+.input-text__edit-name {
+    width: 230px;
+    border-radius: 5px 0 0 5px;
+}
+
+.input-text__edit-cost {
+    width: 233px;
+    border-radius: 0;
+    padding-left: 5px;
+
+}
+
+.edit-enable {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.edit-disable {
+    display: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    padding: 0;
+    transition: 75ms ease-in-out;
+}
+
+.icon:hover {
+    filter: opacity(60%);
+    transition: 75ms ease-in-out;
+}
+
+.background {
+    width: 50px;
+    height: 30px;
+    margin: 0;
+    position: relative;
+    left: -50px;
+    background-color: white;
+    border-radius: 0 5px 5px 0;
+}
+
+.icon-delete {
+    background: url("https://img.icons8.com/metro/20/000000/trash.png") no-repeat;
+}
+
+.icon-edit {
+    background: url("https://img.icons8.com/metro/20/000000/edit.png") no-repeat;
+    padding-left: 25px;
+}
+
+.edit-enable-icon {
+    background: white;
+    z-index: 1;
+    margin-right: 5px;
+}
+
+.edit-enable__accept {
+    background: url("https://img.icons8.com/metro/20/000000/checkmark.png") no-repeat;
+}
+
+.edit-enable__cancel {
+    background: url("https://img.icons8.com/metro/20/000000/delete-sign.png");
+}
+
+img {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: 75ms ease-in-out;
+}
+
+img:hover {
+    filter: opacity(60%);
+    transition: 75ms ease-in-out;
+}

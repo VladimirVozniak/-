@@ -2,12 +2,12 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [],
     name = '',
     cost = 0,
     date1 = '',
+    editMode = false,
     input1,
     input2,
     list,
     buttonAdd,
-    sum = 0,
-    editMode = false
+    sum = 0
 
 //---------------------(v) frontend + backend (v)------------------------------------------
 
@@ -19,10 +19,10 @@ async function GetTasks() {
         })
         const result = await resp.json()
         tasks = result.data
+        render()
     } catch (e) {
         console.log(e)
     }
-
 }
 
 async function NewTask(name, cost, date1) {
@@ -42,7 +42,8 @@ async function NewTask(name, cost, date1) {
 
         })
         const result = await resp.json()
-        tasks[tasks.length - 1] = result.data
+        tasks.push(result.data)
+        render(tasks)
     } catch (e) {
         console.log(e)
     }
@@ -65,10 +66,8 @@ async function EditTask(id, name, cost, index) {
             })
         })
         const result = await resp.json()
-        const result1 = result.data
-        tasks[index] = result1[0]
+        tasks[index] = result.data[0]
         render(tasks)
-        console.log(result)
     } catch (e) {
         console.log(e)
     }
@@ -87,12 +86,14 @@ async function DeleteTask(id) {
                 _id: id
             })
         })
-        await GetTasks()
-        render(tasks)
+        if (resp.ok) {
+            tasks = tasks.filter(task => task._id !== id)
+            localStorage.setItem('tasks', JSON.stringify(tasks))
+            render(tasks)
+        }
     } catch (e) {
         console.log(e)
     }
-
 }
 
 // --------------------(^) frontend + backend (^)------------------------------------------
@@ -109,8 +110,6 @@ window.onload = async function init() {
     buttonAdd.addEventListener('click', addInList)
 
     await GetTasks()
-
-    render(tasks)
 }
 
 addInList = async () => {
@@ -121,18 +120,11 @@ addInList = async () => {
         let yyyy = date.getFullYear();
         date1 = dd + '.' + mm + '.' + yyyy;
 
-        tasks.push({
-            name: name,
-            cost: cost,
-            date: date1,
-            editMode: false,
-        })
+        await NewTask(name, cost, date1, editMode)
 
         tasks.forEach(elem => {
             elem.editMode = false
         })
-
-        await NewTask(name, cost, date1, editMode)
 
         localStorage.setItem('tasks', JSON.stringify(tasks))
 
@@ -140,8 +132,6 @@ addInList = async () => {
         input2.value = ''
         name = ''
         cost = 0
-
-        render(tasks)
     }
 }
 
@@ -153,15 +143,7 @@ const updateValueCost = (event) => {
     cost = Number(event.target.value)
 }
 
-const onIconDelete = async (elem, tasks) => {
-    tasks = tasks.filter(task => task._id !== elem._id)
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-
-    await DeleteTask(elem._id)
-    console.log(1)
-}
-
-render = (tasks) => {
+render = () => {
     while (list.firstChild)
         list.removeChild(list.firstChild)
 
@@ -234,6 +216,7 @@ render = (tasks) => {
 
                 iconCancel.addEventListener('click', function () {
                     tasks[index].editMode = false
+                    render()
                 })
             }
 // --------------------(v) View mode (v)------------------------------------------------------
@@ -246,7 +229,6 @@ render = (tasks) => {
                 pName.className = 'name'
                 pName.innerHTML = 'Магазин' + ' "' + elem.name + '" ' + elem.date
                 div22.append(pName)
-
 
                 const div23 = document.createElement('div')
                 div23.className = 'list-elem list-elem2'
@@ -266,12 +248,12 @@ render = (tasks) => {
                 div23.append(iconDelete)
 
                 iconDelete.onclick = async () => {
-                    await onIconDelete(elem, tasks)
+                    await DeleteTask(elem._id)
                 }
 
                 iconEdit.addEventListener('click', function () {
                     tasks[index].editMode = true
-                    render(tasks)
+                    render()
                 })
 
                 list.append(container)
